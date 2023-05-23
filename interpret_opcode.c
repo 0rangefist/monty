@@ -39,17 +39,16 @@ int is_number(const char *str)
 /**
  * create_node - create node filled with int data
  * @token: string token containing an integer
- * @prog_state: current program state
  * Return: 1 if the string represents a number, 0 otherwise
  */
-stack_t *create_node(char *token, prog_state_t *prog_state)
+stack_t *create_node(char *token)
 {
 	stack_t *new_node; /* node  */
 	int		 n;		   /* node data */
 
 	if (token == NULL || !is_number(token)) /* if token isnt an int */
 	{
-		fprintf(stderr, "L%d: usage: push integer\n", prog_state->line_number);
+		fprintf(stderr, "L%d: usage: push integer\n", prog_state.line_number);
 		return (NULL);
 	}
 
@@ -71,9 +70,8 @@ stack_t *create_node(char *token, prog_state_t *prog_state)
  * or returns a line number error if invalid
  *
  * @tokens: Token array (opcode & arguments)
- * @prog_state: Struct of current shell state variables
  */
-void interpret_opcode(char **tokens, prog_state_t *prog_state)
+void interpret_opcode(char **tokens)
 {
 	void (*execute_opcode)(stack_t **, unsigned int);
 	stack_t *new_node = NULL;
@@ -82,25 +80,25 @@ void interpret_opcode(char **tokens, prog_state_t *prog_state)
 	if (execute_opcode == NULL) /* invalid opcode */
 	{
 		fprintf(stderr, "L%d: unknown instruction %s\n",
-				prog_state->line_number, tokens[0]);
-		prog_state->is_alive	= 0;
-		prog_state->exit_status = EXIT_FAILURE;
+				prog_state.line_number, tokens[0]);
+		prog_state.is_alive	= 0;
+		prog_state.exit_status = EXIT_FAILURE;
 		return;
 	}
 	if (_strcmp(tokens[0], "push") == 0)
 	{
 		/* create a new node */
-		new_node = create_node(tokens[1], prog_state);
+		new_node = create_node(tokens[1]);
 		if (new_node == NULL) /* no/invalid argument or malloc fail */
 		{
-			prog_state->is_alive	= 0;
-			prog_state->exit_status = EXIT_FAILURE;
+			prog_state.is_alive	= 0;
+			prog_state.exit_status = EXIT_FAILURE;
 			return;
 		}
-		execute_opcode(&new_node, prog_state->line_number);
+		execute_opcode(&new_node, prog_state.line_number);
 	}
 	else
 	{
-		execute_opcode(&head, prog_state->line_number);
+		execute_opcode(&head, prog_state.line_number);
 	}
 }

@@ -9,14 +9,16 @@
  */
 void execute_pall(stack_t **head, unsigned int line_number)
 {
+	stack_t *curr_node = *head;
+
 	(void) line_number;
 
 	if (head == NULL || *head == NULL) /* null ptr or empty stack */
 		return;
 
-	while (*head != NULL)
+	while (curr_node != NULL)
 	{
-		printf("%d\n", (*head)->n);
-		*head = (*head)->next;
+		printf("%d\n", curr_node->n);
+		curr_node = curr_node->next;
 	}
 }

@@ -1,5 +1,7 @@
 #include "monty.h"
-stack_t *head = NULL; /* global stack head varaible */
+
+stack_t		*head		= NULL; /* global stack head varaible */
+prog_state_t prog_state = {0};	/* program-wide state variable */
 
 /**
  * main - The entry point of the program
@@ -12,15 +14,14 @@ stack_t *head = NULL; /* global stack head varaible */
  */
 int main(int argc, char *argv[])
 {
-	char		*line;			   /*current line from monty file*/
-	char	   **tokens;		   /*string tokens of opcodes and arguments*/
-	prog_state_t prog_state = {0}; /*program-wide shell state variables*/
+	char  *line;   /*current line from monty file*/
+	char **tokens; /*string tokens of opcodes and arguments*/
 
-	initialize_prog(&prog_state, argc, argv);
+	initialize_prog(argc, argv);
 	while (prog_state.is_alive)
 	{
 		/* read line from file */
-		line = get_line(&prog_state);
+		line = get_line();
 
 		if (line == NULL) /* if empty input or error */
 			continue;	  /*restart loop*/
@@ -34,8 +35,8 @@ int main(int argc, char *argv[])
 		/* tokenize line into array of strings delimited by whitespace */
 		tokens = get_tokens(line);
 
-		/* execute each command in the array sequentially */
-		interpret_opcode(tokens, &prog_state);
+		/* interpret each opcode */
+		interpret_opcode(tokens);
 
 		free_array(tokens);
 	}

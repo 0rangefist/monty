@@ -57,27 +57,33 @@ typedef struct instruction_s
  */
 typedef struct prog_state
 {
-	char	*prog_name;
-	int		 line_number;
-	int		 is_alive;
-	char   **tokens;
-	int		 exit_status;
-	int		 fildes;
+	char  *prog_name;
+	int	   line_number;
+	int	   is_alive;
+	char **tokens;
+	int	   exit_status;
+	int	   fildes;
 } prog_state_t;
 
-extern stack_t *head;
+extern stack_t	   *head;
+extern prog_state_t prog_state;
 
 /* main program functions */
-void   initialize_prog(prog_state_t *s, int argc, char *argv[]);
-char  *get_line(prog_state_t *s);
+void   initialize_prog(int argc, char *argv[]);
+char  *get_line();
 int	   is_comment(char *input);
 char **get_tokens(char *input);
-void   interpret_opcode(char **tokens, prog_state_t *prog_state);
+void   interpret_opcode(char **tokens);
 
 /* monty opcodes */
 void (*get_opcode(char *opcode))(stack_t **, unsigned int);
 void execute_push(stack_t **head, unsigned int line_number);
 void execute_pall(stack_t **head, unsigned int line_number);
+void execute_pint(stack_t **head, unsigned int line_number);
+void execute_pop(stack_t **head, unsigned int line_number);
+void execute_swap(stack_t **head, unsigned int line_number);
+void execute_add(stack_t **head, unsigned int line_number);
+void execute_nop(stack_t **head, unsigned int line_number);
 
 /* string manipulation functions */
 char *_strdup(const char *str);
@@ -97,5 +103,5 @@ void   strip_lead_trail_whitespace(char *str);
 void   strip_all_whitespace(char *str);
 int	   strip_repeated_whitespace(char *buffer, int buff_len);
 void  *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
-
+int	   get_stack_count(stack_t **head);
 #endif /*MONTY_H*/
