@@ -1,4 +1,5 @@
 #include "monty.h"
+stack_t *head = NULL; /* global stack head varaible */
 
 /**
  * main - The entry point of the program
@@ -20,6 +21,7 @@ int main(int argc, char *argv[])
 	{
 		/* read line from file */
 		line = get_line(&prog_state);
+
 		if (line == NULL) /* if empty input or error */
 			continue;	  /*restart loop*/
 
@@ -38,5 +40,6 @@ int main(int argc, char *argv[])
 		free_array(tokens);
 	}
 	close(prog_state.fildes);
+	free_nodes(head);
 	return (prog_state.exit_status);
 }

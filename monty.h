@@ -15,6 +15,36 @@
 /* type definitions*/
 
 /**
+ * struct stack_s - doubly linked list representation of a stack (or queue)
+ * @n: integer
+ * @prev: points to the previous element of the stack (or queue)
+ * @next: points to the next element of the stack (or queue)
+ *
+ * Description: doubly linked list node structure
+ * for stack, queues, LIFO, FIFO
+ */
+typedef struct stack_s
+{
+	int				n;
+	struct stack_s *prev;
+	struct stack_s *next;
+} stack_t;
+
+/**
+ * struct instruction_s - opcode and its function
+ * @opcode: the opcode
+ * @f: function to handle the opcode
+ *
+ * Description: opcode and its function
+ * for stack, queues, LIFO, FIFO
+ */
+typedef struct instruction_s
+{
+	char *opcode;
+	void (*f)(stack_t **stack, unsigned int line_number);
+} instruction_t;
+
+/**
  * struct prog_state - Holds state & info variables
  * of the interpreter program
  *
@@ -25,20 +55,17 @@
  * @exit_status: 0 or positive number exit status of the program
  * @fildes: file descriptor for reading from a file
  */
-struct prog_state
+typedef struct prog_state
 {
-	char  *prog_name;
-	int	   line_number;
-	int	   is_alive;
-	char **tokens;
-	int	   exit_status;
-	int	   fildes;
-};
+	char	*prog_name;
+	int		 line_number;
+	int		 is_alive;
+	char   **tokens;
+	int		 exit_status;
+	int		 fildes;
+} prog_state_t;
 
-/**
- * prog_state_t - typedef for struct prog_state
- */
-typedef struct prog_state prog_state_t;
+extern stack_t *head;
 
 /* main program functions */
 void   initialize_prog(prog_state_t *s, int argc, char *argv[]);
@@ -48,7 +75,9 @@ char **get_tokens(char *input);
 void   interpret_opcode(char **tokens, prog_state_t *prog_state);
 
 /* monty opcodes */
-void execute_push(char **tokens, prog_state_t *prog_state);
+void (*get_opcode(char *opcode))(stack_t **, unsigned int);
+void execute_push(stack_t **head, unsigned int line_number);
+void execute_pall(stack_t **head, unsigned int line_number);
 
 /* string manipulation functions */
 char *_strdup(const char *str);
@@ -62,6 +91,7 @@ int	  _strcmp(const char *s1, const char *s2);
 int	   read_line(char **line, int fd);
 char **tokenize(char *str, char *delim);
 void   free_array(char **str_arr);
+void   free_nodes(stack_t *head);
 int	   is_whitespace_string(char *str);
 void   strip_lead_trail_whitespace(char *str);
 void   strip_all_whitespace(char *str);

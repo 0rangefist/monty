@@ -16,7 +16,13 @@ char *get_line(prog_state_t *prog_state)
 	if (chars_read == -1)		  /* if EOF encountered */
 		prog_state->is_alive = 0; /* kill program */
 
-	if (line != NULL && chars_read >= 1) /* if line is non-empty string */
+	if (is_whitespace_string(line))
+	{
+		free(line);
+		return (NULL);
+	}
+
+	if (line != NULL && chars_read >= 1) /*if line is non-empty string*/
 		return (line);
 
 	/* else if line == NULL || chars_read < 1  */

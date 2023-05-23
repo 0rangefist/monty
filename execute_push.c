@@ -1,12 +1,17 @@
 #include "monty.h"
 
 /**
- * execute_push - Executes the push opcode
+ * execute_push - Pushes a new node unto to the stack
  *
- * @tokens: Token array (opcode & arguments)
- * @prog_state: Struct of current prog state variables
+ * @new_node: new node to be pushed unto stack
+ * @line_number: current line number in the monty file
  */
-void execute_push(char **tokens, prog_state_t *prog_state)
+void execute_push(stack_t **new_node, unsigned int line_number)
 {
-	fprintf(stdout, "PUSH executed!\n");
+	(void) line_number;
+	(*new_node)->prev = NULL;
+	(*new_node)->next = head;
+	if (head != NULL) /* if not an empty list */
+		head->prev = *new_node;
+	head = *new_node;
 }
