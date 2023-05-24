@@ -88,6 +88,10 @@ void execute_sub(stack_t **head, unsigned int line_number);
 void execute_div(stack_t **head, unsigned int line_number);
 void execute_mul(stack_t **head, unsigned int line_number);
 void execute_mod(stack_t **head, unsigned int line_number);
+void execute_pchar(stack_t **head, unsigned int line_number);
+void execute_pstr(stack_t **head, unsigned int line_number);
+void execute_rotl(stack_t **head, unsigned int line_number);
+void execute_rotr(stack_t **head, unsigned int line_number);
 
 /* string manipulation functions */
 char *_strdup(const char *str);
