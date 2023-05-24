@@ -9,17 +9,18 @@
  */
 void initialize_prog(int argc, char *argv[])
 {
-	prog_state.prog_name	= argv[0];
+	prog_state.prog_name   = argv[0];
 	prog_state.line_number = 0;
-	prog_state.is_alive	= 1;
+	prog_state.is_alive	   = 1;
 	prog_state.exit_status = 0;
-	prog_state.tokens		= NULL;
-	prog_state.fildes		= 99;
+	prog_state.tokens	   = NULL;
+	prog_state.fildes	   = 99;
+	prog_state.is_stack	   = 1;
 
 	if (argc != 2) /* incorrect usage */
 	{
 		fprintf(stderr, "USAGE: monty file\n");
-		prog_state.is_alive	= 0; /*kill prog*/
+		prog_state.is_alive	   = 0; /*kill prog*/
 		prog_state.exit_status = EXIT_FAILURE;
 		return;
 	}
@@ -28,7 +29,7 @@ void initialize_prog(int argc, char *argv[])
 	if (prog_state.fildes == -1) /* file read error */
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
-		prog_state.is_alive	= 0; /*kill prog*/
+		prog_state.is_alive	   = 0; /*kill prog*/
 		prog_state.exit_status = EXIT_FAILURE;
 	}
 }

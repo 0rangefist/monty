@@ -54,6 +54,7 @@ typedef struct instruction_s
  * @tokens: backup of array of token strings
  * @exit_status: 0 or positive number exit status of the program
  * @fildes: file descriptor for reading from a file
+ * @is_stack: 1 if interpreter is in stack mode or 0 if in queue mode
  */
 typedef struct prog_state
 {
@@ -63,6 +64,7 @@ typedef struct prog_state
 	char **tokens;
 	int	   exit_status;
 	int	   fildes;
+	int	   is_stack;
 } prog_state_t;
 
 extern stack_t	   *head;

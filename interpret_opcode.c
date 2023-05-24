@@ -76,12 +76,22 @@ void interpret_opcode(char **tokens)
 	void (*execute_opcode)(stack_t **, unsigned int);
 	stack_t *new_node = NULL;
 
+	if (_strcmp(tokens[0], "stack") == 0)
+	{
+		prog_state.is_stack = 1;
+		return;
+	}
+	if (_strcmp(tokens[0], "queue") == 0)
+	{
+		prog_state.is_stack = 0;
+		return;
+	}
 	execute_opcode = get_opcode(tokens[0]);
 	if (execute_opcode == NULL) /* invalid opcode */
 	{
-		fprintf(stderr, "L%d: unknown instruction %s\n",
-				prog_state.line_number, tokens[0]);
-		prog_state.is_alive	= 0;
+		fprintf(stderr, "L%d: unknown instruction %s\n", prog_state.line_number,
+				tokens[0]);
+		prog_state.is_alive	   = 0;
 		prog_state.exit_status = EXIT_FAILURE;
 		return;
 	}
@@ -91,14 +101,12 @@ void interpret_opcode(char **tokens)
 		new_node = create_node(tokens[1]);
 		if (new_node == NULL) /* no/invalid argument or malloc fail */
 		{
-			prog_state.is_alive	= 0;
+			prog_state.is_alive	   = 0;
 			prog_state.exit_status = EXIT_FAILURE;
 			return;
 		}
 		execute_opcode(&new_node, prog_state.line_number);
 	}
-	else
-	{
+	else /* all ther functions */
 		execute_opcode(&head, prog_state.line_number);
-	}
 }
