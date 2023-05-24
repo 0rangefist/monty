@@ -9,15 +9,22 @@
 void (*get_opcode(char *opcode))(stack_t **, unsigned int)
 {
 	int			  i;
-	instruction_t opcodes[] = {{"push", execute_push}, {"pall", execute_pall},
-							   {"pint", execute_pint}, {"pop", execute_pop},
-							   {"swap", execute_swap}, {"add", execute_add},
-							   {"nop", execute_nop},   {"sub", execute_sub},
-							   {"div", execute_div},   {"mul", execute_mul},
-							   {"mod", execute_mod},   {"pchar", execute_pchar},
-							   {"pstr", execute_pstr}, {NULL, NULL}};
+	instruction_t opcodes[] = {{"push", execute_push},
+							   {"pall", execute_pall},
+							   {"pint", execute_pint},
+							   {"pop", execute_pop},
+							   {"swap", execute_swap},
+							   {"add", execute_add},
+							   {"nop", execute_nop},
+							   {"sub", execute_sub},
+							   {"div", execute_div},
+							   {"mul", execute_mul},
+							   {"mod", execute_mod},
+							   {"pchar", execute_pchar},
+							   {"pstr", execute_pstr},
+							   {"rotl", execute_rotl},
+							   {NULL, NULL}};
 	/*
-	 *	{"rotl", execute_rotl},
 	 *	{"rotr", execute_rotr},
 	 *	{"stack", execute_stack},
 	 *	{"queue", execute_queue}
