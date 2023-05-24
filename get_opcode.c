@@ -23,9 +23,9 @@ void (*get_opcode(char *opcode))(stack_t **, unsigned int)
 							   {"pchar", execute_pchar},
 							   {"pstr", execute_pstr},
 							   {"rotl", execute_rotl},
+							   {"rotr", execute_rotr},
 							   {NULL, NULL}};
 	/*
-	 *	{"rotr", execute_rotr},
 	 *	{"stack", execute_stack},
 	 *	{"queue", execute_queue}
 	 */

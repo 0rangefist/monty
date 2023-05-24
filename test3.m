@@ -1,3 +1,6 @@
-push 134
-pstr
-
+push 1
+push 2
+push 3
+pall
+rotr
+pall
