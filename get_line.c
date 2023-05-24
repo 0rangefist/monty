@@ -12,16 +12,10 @@ char *get_line()
 	chars_read = read_line(&line, fd);
 	(prog_state.line_number)++;
 
-	if (chars_read == -1)		  /* if EOF encountered */
+	if (chars_read == -1)		 /* if EOF encountered */
 		prog_state.is_alive = 0; /* kill program */
 
-	if (is_whitespace_string(line))
-	{
-		free(line);
-		return (NULL);
-	}
-
-	if (line != NULL && chars_read >= 1) /*if line is non-empty string*/
+	if (line != NULL && chars_read >= 1) /* non empty line */
 		return (line);
 
 	/* else if line == NULL || chars_read < 1  */

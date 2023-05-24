@@ -84,6 +84,10 @@ void execute_pop(stack_t **head, unsigned int line_number);
 void execute_swap(stack_t **head, unsigned int line_number);
 void execute_add(stack_t **head, unsigned int line_number);
 void execute_nop(stack_t **head, unsigned int line_number);
+void execute_sub(stack_t **head, unsigned int line_number);
+void execute_div(stack_t **head, unsigned int line_number);
+void execute_mul(stack_t **head, unsigned int line_number);
+void execute_mod(stack_t **head, unsigned int line_number);
 
 /* string manipulation functions */
 char *_strdup(const char *str);
