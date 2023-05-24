@@ -1,2 +1,3 @@
-push 121 
-pchar
+push 134
+pstr
+

@@ -21,7 +21,7 @@ void execute_pchar(stack_t **head, unsigned int line_number)
 	}
 
 	/* if n isnt in the ascii range 0-127 */
-	if(node1->n < 0 || node1->n >127)
+	if (node1->n < 0 || node1->n > 127)
 	{
 		fprintf(stderr, "L%d: can't pchar, value out of range\n", line_number);
 		prog_state.exit_status = EXIT_FAILURE;
@@ -31,5 +31,4 @@ void execute_pchar(stack_t **head, unsigned int line_number)
 
 	/* print n as an ascii character */
 	printf("%c\n", node1->n);
-
 }
